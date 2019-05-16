@@ -1,4 +1,10 @@
-package com.example.demo.controller;
+package com.mgr.spring.service;
 
-public class OrderService {
+import com.mgr.spring.model.Order;
+
+import java.util.List;
+
+public interface OrderService {
+
+    List<Order> loadAll();
 }

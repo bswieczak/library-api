@@ -1,4 +1,4 @@
-package com.example.demo.model;
+package com.mgr.spring.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
