@@ -7,4 +7,12 @@ import java.util.List;
 public interface OrderService {
 
     List<Order> loadAll();
+
+    Order loadOrder(Integer id);
+
+    void create(Order order);
+
+    void delete(Integer id);
+
+    void update(Order order);
 }

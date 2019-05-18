@@ -1,17 +1,14 @@
 package com.mgr.spring.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
 
 
-/**
- * The persistent class for the territories database table.
- * 
- */
 @Entity
 @Table(name="territories")
-@NamedQuery(name="Territory.findAll", query="SELECT t FROM Territory t")
 public class Territory implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -23,7 +20,7 @@ public class Territory implements Serializable {
 	private String territoryDescription;
 
 	//bi-directional many-to-many association to Employee
-	@ManyToMany(fetch=FetchType.EAGER)
+	@ManyToMany(fetch=FetchType.LAZY)
 	@JoinTable(
 		name="employee_territories"
 		, joinColumns={
@@ -33,6 +30,7 @@ public class Territory implements Serializable {
 			@JoinColumn(name="employee_id")
 			}
 		)
+	@JsonIgnore
 	private Set<Employee> employees;
 
 	//bi-directional many-to-one association to Region

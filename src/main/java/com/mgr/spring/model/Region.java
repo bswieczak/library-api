@@ -1,5 +1,7 @@
 package com.mgr.spring.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
@@ -7,7 +9,7 @@ import java.util.Set;
 
 /**
  * The persistent class for the region database table.
- * 
+ *
  */
 @Entity
 @NamedQuery(name="Region.findAll", query="SELECT r FROM Region r")
@@ -21,7 +23,8 @@ public class Region implements Serializable {
 	private String regionDescription;
 
 	//bi-directional many-to-one association to Territory
-	@OneToMany(mappedBy="region", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="region", fetch=FetchType.LAZY)
+	@JsonIgnore
 	private Set<Territory> territories;
 
 	public Region() {

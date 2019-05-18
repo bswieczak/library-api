@@ -5,13 +5,8 @@ import javax.persistence.*;
 import java.util.Set;
 
 
-/**
- * The persistent class for the suppliers database table.
- *
- */
 @Entity
 @Table(name="suppliers")
-@NamedQuery(name="Supplier.findAll", query="SELECT s FROM Supplier s")
 public class Supplier implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -41,10 +36,6 @@ public class Supplier implements Serializable {
 	private String postalCode;
 
 	private String region;
-
-	//bi-directional many-to-one association to Product
-	@OneToMany(mappedBy="supplier", fetch=FetchType.EAGER)
-	private Set<Product> products;
 
 	public Supplier() {
 	}
@@ -143,28 +134,6 @@ public class Supplier implements Serializable {
 
 	public void setRegion(String region) {
 		this.region = region;
-	}
-
-	public Set<Product> getProducts() {
-		return this.products;
-	}
-
-	public void setProducts(Set<Product> products) {
-		this.products = products;
-	}
-
-	public Product addProduct(Product product) {
-		getProducts().add(product);
-		product.setSupplier(this);
-
-		return product;
-	}
-
-	public Product removeProduct(Product product) {
-		getProducts().remove(product);
-		product.setSupplier(null);
-
-		return product;
 	}
 
 }

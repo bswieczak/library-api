@@ -11,7 +11,6 @@ import java.util.Set;
  */
 @Entity
 @Table(name="products")
-@NamedQuery(name="Product.findAll", query="SELECT p FROM Product p")
 public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -32,10 +31,6 @@ public class Product implements Serializable {
 	private Integer unitsInStock;
 
 	private Integer unitsOnOrder;
-
-	//bi-directional many-to-one association to OrderDetail
-	@OneToMany(mappedBy="product", fetch=FetchType.EAGER)
-	private Set<OrderDetail> orderDetails;
 
 	//bi-directional many-to-one association to Category
 	@ManyToOne
@@ -112,28 +107,6 @@ public class Product implements Serializable {
 
 	public void setUnitsOnOrder(Integer unitsOnOrder) {
 		this.unitsOnOrder = unitsOnOrder;
-	}
-
-	public Set<OrderDetail> getOrderDetails() {
-		return this.orderDetails;
-	}
-
-	public void setOrderDetails(Set<OrderDetail> orderDetails) {
-		this.orderDetails = orderDetails;
-	}
-
-	public OrderDetail addOrderDetail(OrderDetail orderDetail) {
-		getOrderDetails().add(orderDetail);
-		orderDetail.setProduct(this);
-
-		return orderDetail;
-	}
-
-	public OrderDetail removeOrderDetail(OrderDetail orderDetail) {
-		getOrderDetails().remove(orderDetail);
-		orderDetail.setProduct(null);
-
-		return orderDetail;
 	}
 
 	public Category getCategory() {

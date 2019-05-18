@@ -1,8 +1,11 @@
 package com.mgr.spring.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
 
 /**
@@ -41,8 +44,6 @@ public class Order implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date shippedDate;
 
-
-
 	//bi-directional many-to-one association to Customer
 	@ManyToOne
 	@JoinColumn(name="customer_id")
@@ -57,6 +58,9 @@ public class Order implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="ship_via")
 	private Shipper shipper;
+
+	@OneToMany(mappedBy="order", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<OrderDetail> orderDetails;
 
 	public Order() {
 	}
@@ -173,4 +177,11 @@ public class Order implements Serializable {
 		this.shipper = shipper;
 	}
 
+	public Set<OrderDetail> getOrderDetails() {
+		return orderDetails;
+	}
+
+	public void setOrderDetails(Set<OrderDetail> orderDetails) {
+		this.orderDetails = orderDetails;
+	}
 }

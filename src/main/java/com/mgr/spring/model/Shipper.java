@@ -1,5 +1,7 @@
 package com.mgr.spring.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
@@ -22,10 +24,6 @@ public class Shipper implements Serializable {
 	private String companyName;
 
 	private String phone;
-
-	//bi-directional many-to-one association to Order
-	@OneToMany(mappedBy="shipper", fetch=FetchType.EAGER)
-	private Set<Order> orders;
 
 	public Shipper() {
 	}
@@ -52,28 +50,6 @@ public class Shipper implements Serializable {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
-	}
-
-	public Set<Order> getOrders() {
-		return this.orders;
-	}
-
-	public void setOrders(Set<Order> orders) {
-		this.orders = orders;
-	}
-
-	public Order addOrder(Order order) {
-		getOrders().add(order);
-		order.setShipper(this);
-
-		return order;
-	}
-
-	public Order removeOrder(Order order) {
-		getOrders().remove(order);
-		order.setShipper(null);
-
-		return order;
 	}
 
 }

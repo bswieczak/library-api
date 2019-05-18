@@ -5,12 +5,11 @@ import com.mgr.spring.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping(value = "/order")
 public class OrderController {
 
@@ -25,6 +24,30 @@ public class OrderController {
     public ResponseEntity getOrders() {
         List<Order> orders = orderService.loadAll();
         return ResponseEntity.ok(orders);
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity getOrder(@PathVariable Integer id) {
+        Order order = orderService.loadOrder(id);
+        return ResponseEntity.ok(order);
+    }
+
+    @PostMapping
+    public ResponseEntity createOrder(@RequestBody Order order){
+        orderService.create(order);
+        return ResponseEntity.ok("Order has been created successfully");
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity deleteOrder(@PathVariable Integer id) {
+        orderService.delete(id);
+        return ResponseEntity.ok("Order has been created successfully");
+    }
+
+    @PutMapping
+    public ResponseEntity updateOrder(@RequestBody Order order){
+        orderService.update(order);
+        return ResponseEntity.ok("Order has been created successfully");
     }
 
 }

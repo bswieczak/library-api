@@ -1,5 +1,7 @@
 package com.mgr.spring.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import javax.persistence.*;
 
@@ -10,11 +12,10 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="order_details")
-@NamedQuery(name="OrderDetail.findAll", query="SELECT o FROM OrderDetail o")
 public class OrderDetail implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
+	@EmbeddedId
 	private OrderDetailPK id;
 
 	private float discount;
@@ -23,13 +24,12 @@ public class OrderDetail implements Serializable {
 
 	private float unitPrice;
 
-	//bi-directional many-to-one association to Order
 	@MapsId("orderId")
 	@ManyToOne
 	@JoinColumn(name="order_id")
+	@JsonIgnore
 	private Order order;
 
-	//bi-directional many-to-one association to Product
 	@MapsId("productId")
 	@ManyToOne
 	@JoinColumn(name="product_id")
@@ -38,6 +38,13 @@ public class OrderDetail implements Serializable {
 	public OrderDetail() {
 	}
 
+	public OrderDetailPK getId() {
+		return id;
+	}
+
+	public void setId(OrderDetailPK id) {
+		this.id = id;
+	}
 
 	public float getDiscount() {
 		return this.discount;

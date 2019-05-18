@@ -1,5 +1,7 @@
 package com.mgr.spring.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
@@ -38,10 +40,6 @@ public class Customer implements Serializable {
 	private String postalCode;
 
 	private String region;
-
-	//bi-directional many-to-one association to Order
-	@OneToMany(mappedBy="customer", fetch=FetchType.EAGER)
-	private Set<Order> orders;
 
 	public Customer() {
 	}
@@ -132,28 +130,6 @@ public class Customer implements Serializable {
 
 	public void setRegion(String region) {
 		this.region = region;
-	}
-
-	public Set<Order> getOrders() {
-		return this.orders;
-	}
-
-	public void setOrders(Set<Order> orders) {
-		this.orders = orders;
-	}
-
-	public Order addOrder(Order order) {
-		getOrders().add(order);
-		order.setCustomer(this);
-
-		return order;
-	}
-
-	public Order removeOrder(Order order) {
-		getOrders().remove(order);
-		order.setCustomer(null);
-
-		return order;
 	}
 
 }
