@@ -23,15 +23,15 @@ public class Ksiazki implements Serializable {
 
 	private String tytul;
 
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.MERGE,CascadeType.PERSIST})
 	@JoinColumn(name="id_autor")
 	private Autorzy autorzy;
 
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.MERGE,CascadeType.PERSIST})
 	@JoinColumn(name="id_kategoria")
 	private Kategorie kategorie;
 
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.MERGE,CascadeType.PERSIST})
 	@JoinColumn(name="id_wydawnictwo")
 	private Wydawnictwa wydawnictwa;
 

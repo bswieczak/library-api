@@ -4,6 +4,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Set;
 
+
 @Entity
 public class Wydawnictwa implements Serializable {
 	private static final long serialVersionUID = 1L;

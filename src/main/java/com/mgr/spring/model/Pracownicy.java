@@ -18,7 +18,7 @@ public class Pracownicy implements Serializable {
 
 	private String login;
 
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.MERGE,CascadeType.PERSIST})
 	@JoinColumn(name="id_rola")
 	private Role role;
 

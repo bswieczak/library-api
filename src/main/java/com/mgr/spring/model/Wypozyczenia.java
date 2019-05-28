@@ -21,24 +21,25 @@ public class Wypozyczenia implements Serializable {
 	@Column(name="data_wypozyczenia")
 	private Date dataWypozyczenia;
 
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.MERGE,CascadeType.PERSIST})
 	@JoinColumn(name="id_czytelnik")
 	private Czytelnicy czytelnicy;
 
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.MERGE,CascadeType.PERSIST})
 	@JoinColumn(name="id_ksiazka")
 	private Ksiazki ksiazki;
 
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.MERGE,CascadeType.PERSIST})
 	@JoinColumn(name="id_pracownik_oddanie")
 	private Pracownicy pracownikOddanie;
 
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.MERGE,CascadeType.PERSIST})
 	@JoinColumn(name="id_pracownik_wypozyczenie")
 	private Pracownicy pracownikWypozyczenie;
 
 	public Wypozyczenia() {
 	}
+
 
 	public Long getIdWypozyczenie() {
 		return this.idWypozyczenie;
