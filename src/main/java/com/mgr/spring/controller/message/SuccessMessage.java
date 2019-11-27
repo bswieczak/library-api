@@ -8,6 +8,7 @@ public class SuccessMessage {
     private HttpStatus status;
     private LocalDateTime timestamp;
     private String message;
+    private Long id;
 
     public SuccessMessage(HttpStatus status,String message) {
         this.status = status;
@@ -25,6 +26,14 @@ public class SuccessMessage {
 
     public String getMessage() {
         return message;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
 

@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -39,19 +40,19 @@ public class WypozyczeniaController {
         }
     }
 
-    @GetMapping(value = "/{id}")
+    @RequestMapping(value = "/{id}", produces= MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.GET)
     public ResponseEntity getWypozyczenie(@PathVariable Long id) {
         try {
             final Optional<Wypozyczenia> wypozyczenie = wypozyczeniaService.loadOrder(id);
             if (wypozyczenie.isPresent()) {
                 LOGGER.info("'Wypozyczenie' with id '{}' has bean loaded", id);
-                return ResponseEntity.ok(wypozyczenie);
+                return ResponseEntity.ok(wypozyczenie.get());
             }
         } catch (RuntimeException e) {
             LOGGER.error(e.getMessage(), e);
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Couldn't load the 'wypozyczenie'", e);
         }
-        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "'Wypozyczenia' doesn't exists !");
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "'Wypozyczenie' with id '"+id+"' doesn't exists !");
     }
 
     @PostMapping
@@ -59,8 +60,10 @@ public class WypozyczeniaController {
         try {
             final Wypozyczenia createdWypozyczenie = wypozyczeniaService.create(wypozyczenie);
             LOGGER.info("'Wypozyczenie' has been created successfully with id '{}'", createdWypozyczenie.getIdWypozyczenie());
-            return ResponseEntity.ok(new SuccessMessage(HttpStatus.CREATED,
-                    String.format("'Wypozyczenie' has been created successfully with id '%s'", createdWypozyczenie.getIdWypozyczenie())));
+            final SuccessMessage body = new SuccessMessage(HttpStatus.CREATED,
+                    String.format("'Wypozyczenie' has been created successfully with id '%s'", createdWypozyczenie.getIdWypozyczenie()));
+            body.setId(createdWypozyczenie.getIdWypozyczenie());
+            return ResponseEntity.ok(body);
         } catch (RuntimeException e) {
             LOGGER.error(e.getMessage(), e);
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "'Wypozyczenie' can't be created", e);

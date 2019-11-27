@@ -20,10 +20,6 @@ public class Czytelnicy implements Serializable {
 
 	private String email;
 
-	private String haslo;
-
-	private String login;
-
 	private String telefon;
 
 	public Czytelnicy() {
@@ -51,22 +47,6 @@ public class Czytelnicy implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getHaslo() {
-		return this.haslo;
-	}
-
-	public void setHaslo(String haslo) {
-		this.haslo = haslo;
-	}
-
-	public String getLogin() {
-		return this.login;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
 	}
 
 	public String getTelefon() {
